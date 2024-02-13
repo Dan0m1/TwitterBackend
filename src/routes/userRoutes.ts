@@ -31,8 +31,12 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const {id} = req.params;
     const user = await prisma.user.findUnique({
-        where: {id: Number(id)}
+        where: {id: Number(id)},
+        include:{ tweets: true }
     })
+    if(!user){
+        res.status(404).send({error: "Not Found"})
+    }
 
     res.json(user);
 })
@@ -68,7 +72,7 @@ router.delete('/:id', async (req, res) => {
 
 // list users
 router.get('/', async (req, res) => {
-    const allUsers = await prisma.user.findMany();
+    const allUsers = await prisma.user.findMany({select: {id: true, name: true, image: true}});
     res.json(allUsers);
 })
 

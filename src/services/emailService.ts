@@ -10,10 +10,10 @@ const client = mailgun.client({username: 'api', key: API_KEY, url: "https://api.
 export async function sendEmailToken(email: string, token: string) {
 
     const messageData = {
-        from: `Bohdan <bohdan.shevchenko182@gmail.com>`,
+        from: `Dan0m1.me <confirmation@dan0m1.me>`,
         to: email,
         subject: 'Your one-time password',
-        text: "Your one-time password is: " + token,
+        text: "Your one-time password is: " + token + "\n\nDon't reply to this letter!\ndan0m1.me"
     };
 
     client.messages.create(DOMAIN, messageData)

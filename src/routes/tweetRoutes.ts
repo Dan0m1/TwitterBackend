@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
                 content,
                 image,
                 userId: user.id,
-            }
+            },
+            include: {user:true}
         })
         res.json(result);
     }
@@ -72,6 +73,7 @@ router.delete('/:id', async (req, res) => {
 
 // list tweets
 router.get('/', async (req, res) => {
+    console.log("tweet request")
     const allTweets = await prisma.tweet.findMany({
         include:{
             user:{
